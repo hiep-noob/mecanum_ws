@@ -21,3 +21,4 @@ __pycache__/
 # 4. Các tệp lỗi phát sinh ở thư mục gốc đã phân tích
 turtlebothouse_3d
 /*.lua
+.vscode/
