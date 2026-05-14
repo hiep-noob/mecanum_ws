@@ -1,0 +1,28 @@
+rtabmap:
+  ros__parameters:
+    # Tham số chung
+    use_sim_time: true
+    frame_id: "base_footprint"   # PHẢI SỬA: Khớp với gốc tọa độ trong URDF của Hiệp 
+    odom_frame_id: "odom"        # Tên frame odom từ controller xe mecanum [cite: 17]
+    subscribe_depth: true        # Lấy dữ liệu độ sâu từ camera [cite: 21]
+    subscribe_scan_cloud: true   # Lấy dữ liệu từ Lidar 3D (points_raw) [cite: 16]
+    approx_sync: true            # Cho phép đồng bộ không đồng thời (quan trọng cho mô phỏng)
+    
+    # Cấu hình đồng bộ (Tối ưu cho máy IdeaPad và Gazebo)
+    approx_sync_max_interval: 0.1 # Giảm xuống 0.1 để bản đồ không bị trôi (ghosting)
+    queue_size: 100               # Giữ nguyên hàng đợi lớn để tránh mất gói tin khi lag
+    wait_for_transform: 0.2      # Thêm: Đợi TF 0.2s để tránh lỗi "Extrapolation Error" đỏ lòm
+
+    # Tham số cập nhật bản đồ
+    map_always_update: true      # Luôn cập nhật map ngay cả khi robot đứng yên
+    RGBD/LinearUpdate: "0.05"     # Robot di chuyển 5cm là cập nhật map
+    RGBD/AngularUpdate: "0.05"    # Robot quay 3 độ là cập nhật map
+    
+    # Cấu hình Lidar 3D & Camera Fusion
+    Reg/Strategy: "1"             # 1 = ICP: Dùng Lidar 3D để khớp vị trí (chính xác hơn camera)
+    Reg/Force3DoF: "true"         # Ép robot nằm trên mặt phẳng (xe mecanum không bay lên được)
+    Grid/FromDepth: "false"       # Thêm: Ưu tiên dùng Lidar 3D để dựng bản đồ lưới thay vì Camera
+    Grid/RangeMax: "10.0"         # Giới hạn tầm quét 10m để bản đồ sạch hơn
+    
+    # Xử lý IMU (Sửa lỗi "cannot interpolate imu" trong log cũ)
+    wait_imu_to_init: false       # Tắt đợi IMU để map hiện lên ngay lập tức

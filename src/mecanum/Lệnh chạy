@@ -1,0 +1,87 @@
+# Terminal 1( mở map smallhouse)😀️
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/mecanum_ws/src
+cd ~/mecanum_ws
+source install/setup.bash
+export LIBGL_ALWAYS_SOFTWARE=1
+ros2 launch mecanum sim.launch.py
+#terminal 2: mở map hospital😀️
+cd ~/mecanum_ws
+source install/setup.bash
+export LIBGL_ALWAYS_SOFTWARE=1
+ros2 launch mecanum hospital_sim.launch.py
+#terminal 3:Mở map turtle bot house😀️
+cd ~/mecanum_ws
+source install/setup.bash
+export LIBGL_ALWAYS_SOFTWARE=1
+ros2 launch mecanum house_sim.launch.py
+#mở rviz:😀️
+source /opt/ros/humble/setup.bash
+source ~/mecanum_ws/install/setup.bash
+rviz2
+#mở cartographer 2d:😀️
+cd ~/mecanum_ws
+source install/setup.bash
+ros2 launch mecanum cartographer.launch.py
+#mở slam toolbox:😀️
+source /opt/ros/humble/setup.bash
+source ~/mecanum_ws/install/setup.bash
+ros2 launch slam_toolbox online_async_launch.py
+#lệnh build cho hectorslam:😀️
+cd ~/mecanum_ws
+colcon build --packages-up-to hector_mapping hector_slam_launch
+source install/setup.bash
+#mở hector slam:😀️
+cd ~/mecanum_ws
+source install/setup.bash
+ros2 launch mecanum hector_slam.launch.py
+ #lệnh build:😀️
+cd ~/mecanum_ws
+colcon build --packages-select mecanum
+source install/setup.bash
+#lệnh chạy rtab😀️
+cd ~/mecanum_ws
+source install/setup.bash
+ros2 launch mecanum rtabmap_slam.launch.py
+#lệnh chạy lio_slam😀️
+cd ~/mecanum_ws
+source install/setup.bash
+ros2 launch mecanum lio_sam.launch.py
+#lệnh buid cho karto slam:(chạy trước khi chạy lệnh mở karto cho ko lỗi)😀️
+cd ~/mecanum_ws
+colcon build --packages-up-to slam_karto
+source install/setup.bash
+#lệnh chạy karto slam 😀️
+cd ~/mecanum_ws
+source install/setup.bash
+ros2 launch mecanum karto.launch.py
+#lệnh build gmapping:(chạy trước khi chạy lệnh mở gmapping cho ko lỗi)😀️
+colcon build --packages-select slam_gmapping
+colcon build --packages-up-to slam_gmapping
+#lệnh chạy gmapping:😀️
+cd ~/mecanum_ws
+source install/setup.bash
+ros2 launch mecanum gmapping.launch.py
+#lệnh chạy cartographer 3d:😀️
+cd ~/mecanum_ws
+source install/setup.bash
+ros2 launch mecanum cartographer_3d.launch.py
+#lệnh dừng carto3d vẽ (chạy trước lệnh lưu map)😀️
+ros2 run nav2_map_server map_saver_cli -f ~/mecanum_ws/src/mecanum/maps/smallhouse_1_cartographer2d
+#lệnh lưu map 3d carto:😀️
+ros2 service call /finish_trajectory cartographer_ros_msgs/srv/FinishTrajectory "{trajectory_id: 0}"
+ros2 service call /write_state cartographer_ros_msgs/srv/WriteState "{filename: '${HOME}/mecanum_ws/src/mecanum/maps/small_house_3d.pbstream', include_unfinished_submaps: true}"
+#lệnh ghi bag:😀️
+ros2 bag record -o bag_small_house_3d \
+/points_raw \
+/imu \
+/odom \
+/tf \
+/tf_static \
+/scan_matched_points2
+#lệnh chuyển từ file pbstream sang ply:😀️
+ros2 run cartographer_ros cartographer_assets_writer \
+  -configuration_directory src/mecanum/config \
+  -configuration_basename assets_writer_3d.lua \
+  -urdf_filename src/mecanum/urdf/mecanum.urdf \
+  -bag_filenames src/mecanum/bags/bag_turtlebot_house \
+  -pose_graph_filename src/mecanum/maps/turtlebot_house_3d.pbstream

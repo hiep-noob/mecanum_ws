@@ -1,0 +1,10 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ROS 2 build files (phòng khi bạn lỡ init ở ngoài)
+build/
+install/
+log/

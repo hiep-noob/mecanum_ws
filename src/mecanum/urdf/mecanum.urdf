@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+<robot name="mecanum_arm">
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.0109602584681968 -0.00198894452651621 0.0447043219257538" rpy="0 0 0" />
+      <mass value="0.328" />
+      <inertia ixx="0.000189" ixy="1.08E-07" ixz="2.37E-09" iyy="0.000332" iyz="-2.51E-08" izz="0.000446" />
+    </inertial>
+    <visual>
+      <geometry><mesh filename="package://mecanum/meshes/base_link.STL" scale="1 1 1" /></geometry>
+      <material name="orange"><color rgba="1 0.5 0.0 1.0" /></material>
+    </visual>
+    <collision>
+      <geometry><mesh filename="package://mecanum/meshes/base_link.STL" scale="1 1 1" /></geometry>
+    </collision>
+  </link>
+  <gazebo reference="base_link"><material>Gazebo/Orange</material></gazebo>
+
+  <link name="Lidar_Link">
+    <inertial>
+      <origin xyz="-0.000281468343514363 -0.00668521000575355 -0.0160534771970325" rpy="0 0 0" />
+      <mass value="0.075" />
+      <inertia ixx="2.27E-05" ixy="1.64E-07" ixz="-5.89E-09" iyy="1.60E-05" iyz="-2.90E-08" izz="3.56E-05" />
+    </inertial>
+    <visual><geometry><mesh filename="package://mecanum/meshes/Lidar_Link.STL" scale="1 1 1" /></geometry></visual>
+    <collision><geometry><mesh filename="package://mecanum/meshes/Lidar_Link.STL" scale="1 1 1" /></geometry></collision>
+  </link>
+  <joint name="Lidar_Joint" type="fixed">
+    <origin xyz="-0.0426580946147004 -0.034997456985832 0.2005" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="Lidar_Link" />
+  </joint>
+  <gazebo reference="Lidar_Link"><material>Gazebo/Black</material></gazebo>
+
+  <link name="Arm_Link">
+    <inertial>
+      <origin xyz="0.0245282234762264 6.24562405227014E-06 -0.000250002607569855" rpy="0 0 0" />
+      <mass value="0.025" />
+      <inertia ixx="3.86E-06" ixy="0" ixz="0" iyy="1.45E-05" iyz="0" izz="1.25E-05" />
+    </inertial>
+    <visual><geometry><mesh filename="package://mecanum/meshes/Arm_Link.STL" scale="1 1 1" /></geometry></visual>
+    <collision><geometry><mesh filename="package://mecanum/meshes/Arm_Link.STL" scale="1 1 1" /></geometry></collision>
+  </link>
+  <joint name="Arm_Joint" type="revolute">
+    <origin xyz="0.0468845188536646 0 0.136999988867855" rpy="-1.57 0.52 0" />
+    <parent link="base_link" />
+    <child link="Arm_Link" />
+    <axis xyz="0 0 -1" />
+    <limit lower="0" upper="1.396" effort="1000.0" velocity="2.0" />
+  </joint>
+  <gazebo reference="Arm_Link"><material>Gazebo/Blue</material></gazebo>
+
+  <link name="Prismatic_Link">
+    <inertial>
+     <origin xyz="-5.93969318174459E-14 -1.15740750317173E-14 0.0226043539485762" rpy="0 0 0" />
+     <mass value="0.009" />
+     <inertia ixx="1.32E-06" ixy="0" ixz="0" iyy="1.5E-06" iyz="0" izz="1.5E-06" />
+    </inertial>
+    <visual><geometry><mesh filename="package://mecanum/meshes/Prismatic_Link.STL" scale="1 1 1" /></geometry></visual>
+    <collision><geometry><mesh filename="package://mecanum/meshes/Prismatic_Link.STL" scale="1 1 1" /></geometry></collision>
+  </link>
+  <joint name="Prismatic_Joint" type="prismatic">
+    <origin xyz="0.058 0 -0.00025" rpy="-1.57 0 -1.57" />
+    <parent link="Arm_Link" />
+    <child link="Prismatic_Link" />
+    <axis xyz="0 0 -1" />
+    <limit lower="0" upper="0.01672" effort="1000.0" velocity="0.5" />
+  </joint>
+
+  <link name="Front_left_wheel_Link">
+    <inertial>
+      <mass value="0.054" />
+      <inertia ixx="7.23E-06" ixy="0" ixz="0" iyy="1.05E-05" iyz="0" izz="7.23E-06" />
+    </inertial>
+    <visual><geometry><mesh filename="package://mecanum/meshes/Front_left_wheel_Link.STL" scale="1 1 1" /></geometry></visual>
+    <collision><geometry><mesh filename="package://mecanum/meshes/Front_left_wheel_Link.STL" scale="1 1 1" /></geometry></collision>
+  </link>
+  <joint name="Front_left_wheel_Joint" type="continuous">
+    <origin xyz="0.0660362043186065 0.0909435093768895 0.0196000000000007" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="Front_left_wheel_Link" />
+    <axis xyz="0 1 0" />
+    <limit effort="100.0" velocity="20.0" />
+  </joint>
+
+  <link name="Front_right_wheel_Link">
+    <inertial>
+      <mass value="0.054" />
+      <inertia ixx="7.23E-06" ixy="0" ixz="0" iyy="1.05E-05" iyz="0" izz="7.23E-06" />
+    </inertial>
+    <visual><geometry><mesh filename="package://mecanum/meshes/Front_right_wheel_Link.STL" scale="1 1 1" /></geometry></visual>
+    <collision><geometry><mesh filename="package://mecanum/meshes/Front_right_wheel_Link.STL" scale="1 1 1" /></geometry></collision>
+  </link>
+  <joint name="Front_right_wheel_Joint" type="continuous">
+    <origin xyz="0.0660362043186061 -0.0929378195829321 0.0196000000000011" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="Front_right_wheel_Link" />
+    <axis xyz="0 1 0" />
+    <limit effort="100.0" velocity="20.0" />
+  </joint>
+
+  <link name="Rear_left_wheel_Link">
+    <inertial>
+      <mass value="0.054" />
+      <inertia ixx="7.23E-06" ixy="0" ixz="0" iyy="1.05E-05" iyz="0" izz="7.23E-06" />
+    </inertial>
+    <visual><geometry><mesh filename="package://mecanum/meshes/Rear_left_wheel_Link.STL" scale="1 1 1" /></geometry></visual>
+    <collision><geometry><mesh filename="package://mecanum/meshes/Rear_left_wheel_Link.STL" scale="1 1 1" /></geometry></collision>
+  </link>
+  <joint name="Rear_left_wheel_Joint" type="continuous">
+    <origin xyz="-0.0549637956813947 0.0929435093768897 0.0196000000000011" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="Rear_left_wheel_Link" />
+    <axis xyz="0 1 0" />
+    <limit effort="100.0" velocity="20.0" />
+  </joint>
+
+  <link name="Rear_right_wheel_Link">
+    <inertial>
+      <mass value="0.054" />
+      <inertia ixx="7.23E-06" ixy="0" ixz="0" iyy="1.05E-05" iyz="0" izz="7.23E-06" />
+    </inertial>
+    <visual><geometry><mesh filename="package://mecanum/meshes/Rear_right_wheel_Link.STL" scale="1 1 1" /></geometry></visual>
+    <collision><geometry><mesh filename="package://mecanum/meshes/Rear_right_wheel_Link.STL" scale="1 1 1" /></geometry></collision>
+  </link>
+  <joint name="Rear_right_wheel_Joint" type="continuous">
+    <origin xyz="-0.0549637956813932 -0.0929378195829321 0.0196000000000002" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="Rear_right_wheel_Link" />
+    <axis xyz="0 1 0" />
+    <limit effort="100.0" velocity="20.0" />
+  </joint>
+
+  <gazebo reference="Front_left_wheel_Link"><mu1>0.2</mu1><mu2>0.1</mu2><fdir1>0.707 0.707 0</fdir1><material>Gazebo/DarkGrey</material></gazebo>
+  <gazebo reference="Front_right_wheel_Link"><mu1>0.2</mu1><mu2>0.1</mu2><fdir1>-0.707 0.707 0</fdir1><material>Gazebo/DarkGrey</material></gazebo>
+  <gazebo reference="Rear_left_wheel_Link"><mu1>0.2</mu1><mu2>0.1</mu2><fdir1>0.707 -0.707 0</fdir1><material>Gazebo/DarkGrey</material></gazebo>
+  <gazebo reference="Rear_right_wheel_Link"><mu1>0.2</mu1><mu2>0.1</mu2><fdir1>-0.707 -0.707 0</fdir1><material>Gazebo/DarkGrey</material></gazebo>
+
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware><plugin>gazebo_ros2_control/GazeboSystem</plugin></hardware>
+    <joint name="Front_left_wheel_Joint"><command_interface name="velocity"><param name="min">-10</param><param name="max">10</param></command_interface><state_interface name="position"/><state_interface name="velocity"/></joint>
+    <joint name="Front_right_wheel_Joint"><command_interface name="velocity"><param name="min">-10</param><param name="max">10</param></command_interface><state_interface name="position"/><state_interface name="velocity"/></joint>
+    <joint name="Rear_left_wheel_Joint"><command_interface name="velocity"><param name="min">-10</param><param name="max">10</param></command_interface><state_interface name="position"/><state_interface name="velocity"/></joint>
+    <joint name="Rear_right_wheel_Joint"><command_interface name="velocity"><param name="min">-10</param><param name="max">10</param></command_interface><state_interface name="position"/><state_interface name="velocity"/></joint>
+    <joint name="Arm_Joint"><command_interface name="position" /><state_interface name="position" /><state_interface name="velocity" /></joint>
+    <joint name="Prismatic_Joint"><command_interface name="position" /><state_interface name="position" /><state_interface name="velocity" /></joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>$(find mecanum)/config/arm_controllers.yaml</parameters>
+      <robot_param_node>robot_state_publisher</robot_param_node>
+    </plugin>
+  </gazebo>
+ 
+<!-- LIDAR 2D - VÔ HIỆU HÓA TẠM THỜI
+<gazebo reference="Lidar_Link">  
+      <sensor name="lidar_2d" type="ray">  
+        <always_on>true</always_on>  
+        <visualize>true</visualize>  
+        <update_rate>5</update_rate>  
+        <ray>  
+          <scan>  
+            <horizontal>  
+              <samples>360</samples>  
+              <resolution>1.0</resolution>  
+              <min_angle>0.0</min_angle>  
+              <max_angle>6.28</max_angle>  
+            </horizontal>  
+          </scan>  
+          <range><min>0.12</min><max>30.0</max></range>  
+        </ray>  
+        <plugin name="gazebo_ros_laser_controller_2d" filename="libgazebo_ros_ray_sensor.so">  
+          <ros><remapping>~/out:=scan</remapping></ros>  
+          <output_type>sensor_msgs/LaserScan</output_type>  
+          <frame_name>Lidar_Link</frame_name>   
+        </plugin>  
+      </sensor> 
+</gazebo>
+-->
+<gazebo reference="Lidar_Link"> 
+    <sensor name="lidar_3d" type="ray">
+        <always_on>true</always_on>
+        <visualize>false</visualize>
+        <update_rate>10</update_rate>
+        <ray>
+            <scan>
+                <horizontal>
+                    <samples>360</samples>
+                    <resolution>1.0</resolution>
+                    <min_angle>0.0</min_angle>
+                    <max_angle>6.28</max_angle>
+                </horizontal>
+                <vertical>
+                    <samples>16</samples>
+                    <resolution>1.0</resolution>
+                    <min_angle>-0.26</min_angle>
+                    <max_angle>0.26</max_angle>
+                </vertical>
+            </scan>
+            <range><min>0.12</min><max>30.0</max></range>
+        </ray>
+        <plugin name="gazebo_ros_velodyne_laser" filename="libgazebo_ros_velodyne_laser.so">
+            <ros>
+                <remapping>~/out:=points_raw</remapping>
+            </ros>
+            <frame_name>Lidar_Link</frame_name>
+            <organize_cloud>false</organize_cloud>
+            <min_range>0.12</min_range>
+            <max_range>30.0</max_range>
+        </plugin>
+    </sensor>
+</gazebo>
+  <gazebo>
+    <plugin name="planar_move_plugin" filename="libgazebo_ros_planar_move.so">
+      <ros><remapping>cmd_vel:=/mecanum_controller/reference_unstamped</remapping></ros>
+      <update_rate>50</update_rate>
+      <publish_rate>50</publish_rate>
+      <robot_base_frame>base_footprint</robot_base_frame>
+    </plugin>
+  </gazebo>
+  
+  <joint name="imu_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="imu_link"/>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+</joint>
+
+<link name="imu_link">
+  <inertial>
+    <mass value="0.001"/>
+    <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+  </inertial>
+</link>
+
+<gazebo reference="imu_link">
+  <sensor name="imu_sensor" type="imu">
+    <always_on>true</always_on>
+    <update_rate>100</update_rate>
+    <visualize>false</visualize>
+    <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+      <ros>
+        <remapping>~/out:=imu</remapping>
+      </ros>
+      <frame_name>imu_link</frame_name>
+      <initial_orientation_as_reference>false</initial_orientation_as_reference>
+    </plugin>
+    <imu>
+      <angular_velocity>
+        <x><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev><bias_mean>0.0000075</bias_mean><bias_stddev>0.0000008</bias_stddev></noise></x>
+        <y><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev><bias_mean>0.0000075</bias_mean><bias_stddev>0.0000008</bias_stddev></noise></y>
+        <z><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev><bias_mean>0.0000075</bias_mean><bias_stddev>0.0000008</bias_stddev></noise></z>
+      </angular_velocity>
+      <linear_acceleration>
+        <x><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev><bias_mean>0.1</bias_mean><bias_stddev>0.001</bias_stddev></noise></x>
+        <y><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev><bias_mean>0.1</bias_mean><bias_stddev>0.001</bias_stddev></noise></y>
+        <z><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev><bias_mean>0.1</bias_mean><bias_stddev>0.001</bias_stddev></noise></z>
+      </linear_acceleration>
+    </imu>
+  </sensor>
+</gazebo>
+  <link name="Camera_Link">
+    <inertial>
+      <origin xyz="-0.0181111609770057 3.76356869614403E-05 0.00916879998902284" rpy="0 0 0" />
+      <mass value="0.01258" />
+      <inertia ixx="1.59E-06" ixy="0" ixz="0" iyy="1.26E-06" iyz="0" izz="2.0E-06" />
+    </inertial>
+    <visual>
+      <geometry><mesh filename="package://mecanum/meshes/Camera_Link.STL" scale="1 1 1" /></geometry>
+    </visual>
+    <collision>
+      <geometry><mesh filename="package://mecanum/meshes/Camera_Link.STL" scale="1 1 1" /></geometry>
+    </collision>
+  </link>
+
+  <joint name="Camera_Joint" type="fixed">
+    <origin xyz="0.06368 -0.0375 -0.00025" rpy="1.5708 0 -0.52498" />
+    <parent link="Arm_Link" />
+    <child link="Camera_Link" />
+  </joint>
+  <link name="camera_link_optical"></link>
+  <joint name="camera_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+    <parent link="Camera_Link"/>
+    <child link="camera_link_optical"/>
+  </joint>
+  <gazebo reference="Camera_Link"><material>Gazebo/DarkGrey</material></gazebo>
+
+  <gazebo reference="Camera_Link">
+    <sensor type="depth" name="robot_camera"> 
+      <update_rate>5.0</update_rate>
+      <always_on>true</always_on>
+      <visualize>false</visualize> 
+      <camera name="camera">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>8.0</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <ros>
+          <remapping>~/image_raw:=/camera/image_raw</remapping>
+          <remapping>~/depth/image_raw:=/camera/depth/image_raw</remapping>
+          <remapping>~/camera_info:=/camera/camera_info</remapping>
+          <remapping>~/depth/camera_info:=/camera/depth/camera_info</remapping>
+          <remapping>~/points:=/camera/depth/points</remapping>
+        </ros>
+        <camera_name>camera</camera_name>
+        <frame_name>camera_link_optical</frame_name>
+        <hack_baseline>0.07</hack_baseline>
+        <min_depth>0.05</min_depth>
+        <max_depth>8.0</max_depth>
+      </plugin>
+    </sensor>
+  </gazebo>
+</robot>

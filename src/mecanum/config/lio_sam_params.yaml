@@ -1,0 +1,37 @@
+lio_sam:
+  ros__parameters:
+    # Topics
+    pointCloudTopic: "/points_raw"
+    imuTopic: "/imu"
+    odomTopic: "/mecanum_controller/odometry"
+
+    # Frames
+    lidarFrame: "Lidar_Link"
+    baselinkFrame: "base_link"
+    odometryFrame: "odom"
+    mapFrame: "map"
+
+    # Lidar Settings
+    sensor: velodyne
+    N_SCAN: 16
+    Horizon_SCAN: 1800
+    downsampleRate: 1
+    lidarMinRange: 0.5
+    lidarMaxRange: 30.0
+
+    # IMU Settings
+    imuAccNoise: 0.017
+    imuGyrNoise: 0.0002
+    imuGravity: 9.80511
+    
+    #Extrinsics (Lidar to IMU)
+    extrinsicTrans: [-0.0426, -0.0349, 0.2005] 
+    extrinsicRot: [1.0, 0.0, 0.0,
+                   0.0, 1.0, 0.0,
+                   0.0, 0.0, 1.0]
+    extrinsicRPY: [1.0, 0.0, 0.0,
+                   0.0, 1.0, 0.0,
+                   0.0, 0.0, 1.0]
+    # Export settings
+    savePCD: true
+    savePCDDirectory: "/home/hiep/mecanum_ws/src/mecanum/maps/"

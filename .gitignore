@@ -1,0 +1,23 @@
+# 1. Thư mục biên dịch của ROS 2 (Tuyệt đối không đẩy lên)
+build/
+install/
+log/
+
+# 2. Dữ liệu dung lượng lớn (Sẽ đính kèm link tải ngoài ở README)
+src/mecanum/bags/
+*.bag
+*.pbstream
+*.ply
+*.pcd
+*.db
+
+# 3. Tệp rác hệ thống, tệp tạm và cache bộ nhớ
+__pycache__/
+*.pyc
+*.swp
+*~
+.DS_Store
+
+# 4. Các tệp lỗi phát sinh ở thư mục gốc đã phân tích
+turtlebothouse_3d
+/*.lua

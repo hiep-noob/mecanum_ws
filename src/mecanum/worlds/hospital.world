@@ -1,0 +1,82 @@
+<sdf version="1.6">
+  <world name="world">
+    <gravity>0 0 -9.8</gravity>
+    <physics default="0" name="default_physics" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.7 0.7 0.7 1</ambient>
+      <background>0.5 0.5 0.5 1</background>
+      <shadows>false</shadows>
+    </scene>
+
+    <include><uri>model://sun</uri></include>
+
+    <!-- FIX: mặt trên của box = pose_z + size_z/2 = -0.05 + 0.1/2 = 0.0 ✅ -->
+    <!-- TRƯỚC: pose z=-2.0, size dày 1.0 → mặt trên tại z=-1.5 (vô dụng) -->
+    <model name="super_thick_floor">
+      <static>true</static>
+      <pose>0 0 -0.05 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>200 200 0.1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1e6</kp>
+                <kd>100</kd>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>200 200 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- FIX: Xóa ground_collision_plane vì nó conflict với super_thick_floor -->
+    <!-- Khi 2 collision box chồng nhau tại z=0, ODE bị confused → robot tunneling -->
+
+    <include>
+      <uri>model://aws_robomaker_hospital_floor_01</uri>
+      <n>hospital_floor</n>
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://aws_robomaker_hospital_floor_01_walls</uri>
+      <n>hospital_walls</n>
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://nurses_station</uri>
+      <n>nurses_station</n>
+      <static>true</static>
+      <pose>5 5 0 0 0 0</pose>
+    </include>
+
+  </world>
+</sdf>

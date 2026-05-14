@@ -1,0 +1,28 @@
+<package format="2">
+  <name>sparse_bundle_adjustment</name>
+  <description>
+     This is the ROS 2.0 version of sparse bundle adjustment (sba) library (needed for slam_karto_ros2)
+  </description>
+  <version>0.0.1</version>
+  <maintainer email="haochih.lin@adlinktech.com">HaoChih, Lin</maintainer>
+  <maintainer email="fergs@unboundedrobotics.com">Michael Ferguson</maintainer>
+  <maintainer email="lbettaieb@fetchrobotics.com">Luc Bettaieb</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  
+  <build_depend>rclcpp</build_depend>
+  <build_depend>liblapack-dev</build_depend>
+  <build_depend>libblas-dev</build_depend>
+  <build_depend>suitesparse</build_depend>
+
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>liblapack-dev</exec_depend>
+  <exec_depend>libblas-dev</exec_depend>
+  <exec_depend>suitesparse</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+
