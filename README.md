@@ -14,3 +14,4 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 4. Các lệnh chạy trong file lệnh **[Bấm vào đây để xem toàn bộ lệnh chạy dự án](src/mecanum/Lệnh%20chạy)**
+5. Thư mục chứa các bản đồ 2D đã quét: **[Bấm vào đây để xem thư mục maps](src/mecanum/maps)**
