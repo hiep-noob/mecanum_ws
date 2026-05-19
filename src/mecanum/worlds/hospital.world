@@ -14,8 +14,6 @@
 
     <include><uri>model://sun</uri></include>
 
-    <!-- FIX: mặt trên của box = pose_z + size_z/2 = -0.05 + 0.1/2 = 0.0 ✅ -->
-    <!-- TRƯỚC: pose z=-2.0, size dày 1.0 → mặt trên tại z=-1.5 (vô dụng) -->
     <model name="super_thick_floor">
       <static>true</static>
       <pose>0 0 -0.05 0 0 0</pose>
@@ -54,8 +52,7 @@
       </link>
     </model>
 
-    <!-- FIX: Xóa ground_collision_plane vì nó conflict với super_thick_floor -->
-    <!-- Khi 2 collision box chồng nhau tại z=0, ODE bị confused → robot tunneling -->
+
 
     <include>
       <uri>model://aws_robomaker_hospital_floor_01</uri>
