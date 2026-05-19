@@ -13,4 +13,4 @@ rosdep install --from-paths src --ignore-src -r -y
 colcon build --symlink-install
 source install/setup.bash
 ```
-4. Các lệnh chạy trong file lệnh **[Bấm vào đây để xem toàn bộ Lệnh chạy dự án](src/mecanum/Lệnh%20chạy)**
+4. Các lệnh chạy trong file lệnh **[Bấm vào đây để xem toàn bộ lệnh chạy dự án](src/mecanum/Lệnh%20chạy)**
