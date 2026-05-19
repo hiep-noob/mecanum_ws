@@ -1,4 +1,4 @@
-1. Clone toàn bộ dự án:**
+1. Clone toàn bộ dự án:
 ```bash
 git clone https://github.com/hiep-noob/mecanum_ws.git
 cd mecanum_ws
