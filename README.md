@@ -1,6 +1,6 @@
 1. Clone toàn bộ dự án:**
 ```bash
-git clone [https://github.com/hiep-noob/mecanum_ws.git](https://github.com/hiep-noob/mecanum_ws.git)
+git clone https://github.com/hiep-noob/mecanum_ws.git
 cd mecanum_ws
 ```
 2. Cài đặt các thư viện hệ thống
