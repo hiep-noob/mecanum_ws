@@ -1,0 +1,16 @@
+GT  : turtlebothouse_ground_truth.pgm
+SLAM: turtlebothouse_cartographer.pgm
+
+iou: 0.18208778173190984
+ssim: 0.9643270573952668
+precision: 0.3187954309448533
+recall: 0.298058252427088
+f1: 0.308078273459318
+completeness: 0.9310679611650485
+accuracy: 1.0
+f1_dist: 0.9643036696866601
+chamfer: 1.3066571161103238
+hausdorff: 38.62641583165593
+TP: 921
+FP: 1968
+FN: 2169

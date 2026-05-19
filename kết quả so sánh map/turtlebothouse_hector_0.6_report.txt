@@ -1,0 +1,16 @@
+GT  : turtlebothouse_ground_truth.pgm
+SLAM: turtlebothouse_hectorslam_0.6.pgm
+
+iou: 0.3747685185185185
+ssim: 0.9675049730158312
+precision: 0.5682695682693688
+recall: 0.5239482200645553
+f1: 0.545209630751692
+completeness: 1.0
+accuracy: 1.0
+f1_dist: 0.9999999995
+chamfer: 0.6533276000956876
+hausdorff: 4.242640687119285
+TP: 1619
+FP: 1230
+FN: 1471

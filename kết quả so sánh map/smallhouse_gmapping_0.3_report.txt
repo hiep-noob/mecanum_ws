@@ -1,0 +1,16 @@
+GT  : smallhouse_ground_truth.pgm
+SLAM: smallhouse_gmapping.pgm
+
+iou: 0.3553826199740597
+ssim: 0.9915120136847009
+precision: 0.37475576397022764
+recall: 0.8730086481561798
+f1: 0.5244019134551815
+completeness: 1.0
+accuracy: 0.9845642829230168
+f1_dist: 0.9922221123286213
+chamfer: 0.5453527620637841
+hausdorff: 18.0
+TP: 1918
+FP: 3200
+FN: 279

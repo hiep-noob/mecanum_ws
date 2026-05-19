@@ -1,0 +1,14 @@
+GT  : smallhouse_ground_truth.pgm
+SLAM: smallhouse_cartographer.pgm
+
+IoU              : 0.001404
+Pixel Accuracy   : 0.929464
+SSIM             : 0.669737
+Precision        : 0.001443
+Recall           : 0.049180
+F1-Score         : 0.027829
+Completeness     : 0.171721
+Map Accuracy     : 0.015141
+Chamfer (px)     : 165.8407
+Hausdorff (px)   : 569.7754
+TP=120  FP=83029  FN=2320
